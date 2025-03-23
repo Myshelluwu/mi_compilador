@@ -15,6 +15,15 @@ TOKENS = [
     ('MINUS', r'-'),  # Operador de resta
     ('MULTIPLY', r'\*'),  # Operador de multiplicación
     ('DIVIDE', r'/'),  # Operador de división
+    ('EQUAL', r'=='),  # Igualdad
+    ('NOT_EQUAL', r'!='),  # Desigualdad
+    ('LESS', r'<'),  # Menor que
+    ('GREATER', r'>'),  # Mayor que
+    ('LESS_EQUAL', r'<='),  # Menor o igual que
+    ('GREATER_EQUAL', r'>='),  # Mayor o igual que
+    ('AND', r'&&'),  # AND lógico
+    ('OR', r'\|\|'),  # OR lógico
+    ('NOT', r'!'),  # NOT lógico
     ('LPAREN', r'\('),  # Paréntesis izquierdo
     ('RPAREN', r'\)'),  # Paréntesis derecho
     ('LBRACKET', r'\['),  # Corchete izquierdo

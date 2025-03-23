@@ -64,6 +64,32 @@ class Interpreter:
                 return left * right
             elif node.op == '/':
                 return left / right
+        elif isinstance(node, ComparisonOp):
+            left = self.evaluate(node.left)
+            right = self.evaluate(node.right)
+            if node.op == '==':
+                return left == right
+            elif node.op == '!=':
+                return left != right
+            elif node.op == '<':
+                return left < right
+            elif node.op == '>':
+                return left > right
+            elif node.op == '<=':
+                return left <= right
+            elif node.op == '>=':
+                return left >= right
+        elif isinstance(node, LogicalOp):
+            left = self.evaluate(node.left)
+            right = self.evaluate(node.right)
+            if node.op == '&&':
+                return left and right
+            elif node.op == '||':
+                return left or right
+        elif isinstance(node, NotOp):
+            return not self.evaluate(node.expr)
+        elif isinstance(node, Variable):
+            return self.variables.get(node.name, 0)
         elif isinstance(node, Variable):
             # Nodo Variable: devuelve el valor de la variable
             return self.variables.get(node.name, 0)

@@ -85,6 +85,36 @@ def parse_mul_div(tokens):
         node = BinOp(node, op, parse_factor(tokens))
     return node
 
+def parse_expression(tokens):
+    return parse_logical_or(tokens)
+
+def parse_logical_or(tokens):
+    node = parse_logical_and(tokens)
+    while tokens and tokens[0][0] == 'OR':
+        op = tokens.pop(0)[1]
+        node = LogicalOp(node, op, parse_logical_and(tokens))
+    return node
+
+def parse_logical_and(tokens):
+    node = parse_comparison(tokens)
+    while tokens and tokens[0][0] == 'AND':
+        op = tokens.pop(0)[1]
+        node = LogicalOp(node, op, parse_comparison(tokens))
+    return node
+
+def parse_comparison(tokens):
+    node = parse_add_sub(tokens)
+    while tokens and tokens[0][0] in ('EQUAL', 'NOT_EQUAL', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL'):
+        op = tokens.pop(0)[1]
+        node = ComparisonOp(node, op, parse_add_sub(tokens))
+    return node
+
+def parse_not(tokens):
+    if tokens[0][0] == 'NOT':
+        tokens.pop(0)  # Eliminar '!'
+        return NotOp(parse_factor(tokens))
+    return parse_factor(tokens)
+
 def parse_factor(tokens):
     if tokens[0][0] == 'NUMBER':
         return Number(int(tokens.pop(0)[1]))
@@ -109,5 +139,7 @@ def parse_factor(tokens):
         return node
     elif tokens[0][0] == 'LBRACKET':
         return parse_array(tokens)
+    elif tokens[0][0] == 'NOT':
+        return parse_not(tokens)
     else:
         raise SyntaxError(f'Token inesperado: {tokens[0][1]}')

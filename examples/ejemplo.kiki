@@ -33,3 +33,17 @@ print(entero)
 print(flotante)
 print(cadena)
 print(booleano)
+
+# Operaciones Aritmeticas y Logicas
+
+var a = 10
+var b = 20
+var c = true
+var d = false
+
+print(a + b)  # 30
+print(a < b)  # true
+print(c && d)  # false
+print(c || d)  # true
+print(!d)  # true
+
