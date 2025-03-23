@@ -1,6 +1,5 @@
-from src.lexer import lex
-
-code = """
+# Estructuras de control
+print("Estructuras de control:")
 var a = 10
 
 if (a > 5) {
@@ -10,7 +9,7 @@ if (a > 5) {
 }
 
 for (var i = 0; i < 3; i = i + 1) {
-    print(i)
+   print(i)
 }
 
 var j = 0
@@ -18,9 +17,3 @@ while (j < 3) {
     print(j)
     j = j + 1
 }
-
-"""
-
-tokens = lex(code)
-for token in tokens:
-    print(token)
