@@ -1,0 +1,5 @@
+var arreglo = [1, 2, 3, 4, 5]
+var matriz = [[1, 2], [3, 4]]
+
+print(arreglo[0])
+print(matriz[1][0])

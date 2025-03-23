@@ -1,0 +1,4 @@
+var entero = 42
+var flotante = 3.14
+var cadena = "Hola, mundo!"
+var booleano = true
