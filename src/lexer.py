@@ -2,11 +2,13 @@ import re
 
 TOKENS = [
     ('COMMENT_SINGLE', r'#.*'),  # Comentarios de una línea
-    ('COMMENT_MULTIPLE', r'/\*.*?\*/'),  # Comentarios de varias líneas
+    ('COMMENT_MULTIPLE', r'/\*[^*]*\*+(?:[^/*][^*]*\*+)*/'),  # Comentarios de varias líneas
     ('PRINT', r'print'),  # Palabra clave 'print'
     ('VAR', r'var'),  # Palabra clave 'var'
+    ('FLOAT', r'\d+\.\d+'),  # Números flotantes
     ('NUMBER', r'\d+'),  # Números enteros
-    ('STRING', r"'[^']*'"),  # Cadenas entre comillas simples
+    ('STRING', r'"[^"]*"'),  # Cadenas entre comillas dobles
+    ('BOOLEAN', r'true|false'),  # Booleanos
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),  # Identificadores
     ('ASSIGN', r'='),  # Operador de asignación
     ('PLUS', r'\+'),  # Operador de suma
@@ -30,10 +32,12 @@ def lex(code):
             if match:
                 value = match.group(0)
                 # Ignorar comentarios y espacios en blanco
-                if token_name not in ('COMMENT_SINGLE', 'COMMENT_MULTI', 'WHITESPACE'):
+                if token_name not in ('COMMENT_SINGLE', 'COMMENT_MULTIPLE', 'WHITESPACE'):
                     tokens.append((token_name, value))  # Asegúrate de que sea una tupla (tipo, valor)
                 code = code[len(value):]
                 break
         else:
+            # Imprime el carácter inesperado
+            print(f"Carácter inesperado: '{code[0]}'")
             raise SyntaxError(f'Carácter inesperado: {code[0]}')
     return tokens

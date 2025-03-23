@@ -1,0 +1,35 @@
+# Arreglos
+
+var arreglo = [1, 2, 3, 4, 5]
+var matriz = [[1, 2], [3, 4]]
+
+print(arreglo[0])
+print(matriz[1][0])
+
+# Comentarios
+
+# Este es un comentario de una línea.
+var x = 10  # Esto es una variable con un comentario.
+
+var y = 20
+
+print(x + y)  # Imprime la suma de x e y.
+
+# Variables
+
+var x = 10
+var y = 20
+var z = x + y
+print(z)
+
+# Datos basicos
+
+var entero = 42
+var flotante = 3.14
+var cadena = "Hola, mundo!"
+var booleano = true
+
+print(entero)
+print(flotante)
+print(cadena)
+print(booleano)

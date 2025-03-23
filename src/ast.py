@@ -17,12 +17,26 @@ class Number(ASTNode):
     def __repr__(self):
         return f'Number({self.value})'
 
+class Float(ASTNode):
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f'Float({self.value})'
+
 class String(ASTNode):
     def __init__(self, value):
-        self.value = value[1:-1]  # Eliminar las comillas simples
+        self.value = value
 
     def __repr__(self):
         return f'String({self.value})'
+
+class Boolean(ASTNode):
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f'Boolean({self.value})'
 
 class Array(ASTNode):
     def __init__(self, elements):
@@ -46,14 +60,6 @@ class VariableDeclaration(ASTNode):
 
     def __repr__(self):
         return f'VariableDeclaration({self.name}, {self.value})'
-
-class VariableAssignment(ASTNode):
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
-
-    def __repr__(self):
-        return f'VariableAssignment({self.name}, {self.value})'
 
 class Variable(ASTNode):
     def __init__(self, name):

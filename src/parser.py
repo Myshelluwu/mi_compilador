@@ -60,6 +60,16 @@ def parse_array(tokens):
     tokens.pop(0)  # Eliminar ']'
     return Array(elements)
 
+def parse_array_access(tokens, name):
+    indices = []
+    while tokens and tokens[0][0] == 'LBRACKET':
+        tokens.pop(0)  # Eliminar '['
+        index = parse_expression(tokens)
+        indices.append(index)
+        if tokens[0][0] != 'RBRACKET':
+            raise SyntaxError("Se esperaba ']' después del índice")
+        tokens.pop(0)  # Eliminar ']'
+    return ArrayAccess(name, indices)
 
 def parse_add_sub(tokens):
     node = parse_mul_div(tokens)
@@ -78,8 +88,13 @@ def parse_mul_div(tokens):
 def parse_factor(tokens):
     if tokens[0][0] == 'NUMBER':
         return Number(int(tokens.pop(0)[1]))
+    elif tokens[0][0] == 'FLOAT':
+        return Float(float(tokens.pop(0)[1]))
     elif tokens[0][0] == 'STRING':
-        return String(tokens.pop(0)[1])  # Crear un nodo String
+        return String(tokens.pop(0)[1][1:-1])  # Eliminar comillas
+    elif tokens[0][0] == 'BOOLEAN':
+        value = tokens.pop(0)[1]
+        return Boolean(value == 'true')
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
         if tokens and tokens[0][0] == 'LBRACKET':
@@ -93,17 +108,6 @@ def parse_factor(tokens):
         tokens.pop(0)  # Eliminar ')'
         return node
     elif tokens[0][0] == 'LBRACKET':
-        return parse_array(tokens)  # Manejar arreglos directamente
+        return parse_array(tokens)
     else:
         raise SyntaxError(f'Token inesperado: {tokens[0][1]}')
-
-def parse_array_access(tokens, name):
-    indices = []
-    while tokens and tokens[0][0] == 'LBRACKET':
-        tokens.pop(0)  # Eliminar '['
-        index = parse_expression(tokens)
-        indices.append(index)
-        if tokens[0][0] != 'RBRACKET':
-            raise SyntaxError("Se esperaba ']' después del índice")
-        tokens.pop(0)  # Eliminar ']'
-    return ArrayAccess(name, indices)
