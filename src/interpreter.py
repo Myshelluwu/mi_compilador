@@ -3,6 +3,7 @@ from .ast import *  # Importa todas las clases del AST
 class Interpreter:
     def __init__(self):
         self.variables = {}  # Diccionario para almacenar variables
+        self.functions = {}  # Diccionario para almacenar funciones
 
     def interpret(self, statements):    
         """
@@ -33,6 +34,10 @@ class Interpreter:
                 # Bucle while
                 while self.evaluate(statement.condition):  # Evalúa la condición
                     self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+            elif isinstance(statement, FunctionDeclaration):
+                self.functions[statement.name] = statement  # Guardar la función
+            elif isinstance(statement, ReturnStatement):
+                return self.evaluate(statement.value)  # Retornar el valor
             else:
                 # Otras declaraciones (expresiones)
                 self.evaluate(statement)
@@ -106,6 +111,23 @@ class Interpreter:
         elif isinstance(node, Variable):
             # Nodo Variable: devuelve el valor de la variable
             return self.variables.get(node.name, 0)
+        elif isinstance(node, FunctionCall):
+            function = self.functions.get(node.name)
+            if function is None:
+                raise ValueError(f'Función no definida: {node.name}')
+            # Crear un nuevo ámbito para los parámetros
+            old_variables = self.variables.copy()
+            for param_name, arg_value in zip(function.parameters, node.arguments):
+                self.variables[param_name] = self.evaluate(arg_value)
+            # Ejecutar el cuerpo de la función
+            result = None
+            for statement in function.body:
+                result = self.interpret([statement])
+                if isinstance(statement, ReturnStatement):
+                    break
+            # Restaurar el ámbito anterior
+            self.variables = old_variables
+            return result
         else:
             # Si el nodo no es reconocido, lanza un error
             raise ValueError(f'Nodo AST no reconocido: {node}')

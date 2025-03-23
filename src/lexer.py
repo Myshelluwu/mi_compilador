@@ -13,6 +13,8 @@ TOKENS = [
     ('FOR', r'for'),  # Bucle for
     ('WHILE', r'while'),  # Bucle while
     ('BOOLEAN', r'true|false'),  # Booleanos
+    ('FUNCTION', r'function'),  # Palabra clave 'function'
+    ('RETURN', r'return'),  
 
     # Operadores y símbolos (deben estar antes de los identificadores y números)
     ('EQUAL', r'=='),  # Igualdad

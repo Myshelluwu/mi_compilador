@@ -23,6 +23,10 @@ def parse_statement(tokens):
         return parse_for_loop(tokens)
     elif tokens[0][0] == 'WHILE':
         return parse_while_loop(tokens)
+    elif tokens[0][0] == 'FUNCTION':
+        return parse_function_declaration(tokens)
+    elif tokens[0][0] == 'RETURN':
+        return parse_return_statement(tokens)
     else:
         return parse_expression(tokens)
 
@@ -208,6 +212,41 @@ def parse_not(tokens):
         return NotOp(parse_factor(tokens))
     return parse_factor(tokens)
 
+def parse_function_declaration(tokens):
+    tokens.pop(0)  # Eliminar 'function'
+    name = tokens.pop(0)[1]  # Obtener el nombre de la función
+    if tokens[0][0] != 'LPAREN':
+        raise SyntaxError("Se esperaba '(' después del nombre de la función")
+    tokens.pop(0)  # Eliminar '('
+    parameters = []
+    while tokens[0][0] != 'RPAREN':
+        if tokens[0][0] == 'IDENTIFIER':
+            parameters.append(tokens.pop(0)[1])  # Obtener el nombre del parámetro
+        if tokens[0][0] == 'COMMA':
+            tokens.pop(0)  # Eliminar ','
+    tokens.pop(0)  # Eliminar ')'
+    if tokens[0][0] != 'LBRACE':
+        raise SyntaxError("Se esperaba '{' después de los parámetros")
+    tokens.pop(0)  # Eliminar '{'
+    body = parse_block(tokens)
+    return FunctionDeclaration(name, parameters, body)
+
+def parse_return_statement(tokens):
+    tokens.pop(0)  # Eliminar 'return'
+    value = parse_expression(tokens)
+    # No es necesario verificar el punto y coma
+    return ReturnStatement(value)
+
+def parse_function_call(tokens, name):
+    tokens.pop(0)  # Eliminar '('
+    arguments = []
+    while tokens[0][0] != 'RPAREN':
+        arguments.append(parse_expression(tokens))
+        if tokens[0][0] == 'COMMA':
+            tokens.pop(0)  # Eliminar ','
+    tokens.pop(0)  # Eliminar ')'
+    return FunctionCall(name, arguments)
+
 def parse_factor(tokens):
     if tokens[0][0] == 'NUMBER':
         return Number(int(tokens.pop(0)[1]))
@@ -221,8 +260,14 @@ def parse_factor(tokens):
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
         if tokens and tokens[0][0] == 'LBRACKET':
+            # Es un acceso a arreglo
             return parse_array_access(tokens, name)
-        return Variable(name)
+        elif tokens and tokens[0][0] == 'LPAREN':
+            # Es una llamada a función
+            return parse_function_call(tokens, name)
+        else:
+            # Es una variable simple
+            return Variable(name)
     elif tokens[0][0] == 'LPAREN':
         tokens.pop(0)  # Eliminar '('
         node = parse_expression(tokens)
