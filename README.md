@@ -16,7 +16,7 @@ Este es un compilador para un lenguaje de programación simple llamado Kiki. El 
     cd ProyectoFinalMod1
 3. Ejecuta el compilador:
     python main.py
-4. Ingresa el nombre del archivo .kiki que deseas ejecutar (sin la extensión)
+4. Ingresa el nombre del archivo .kiki que deseas ejecutar (sin la extensión):
     all
 
 ## Archivos de ejemplo
