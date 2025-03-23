@@ -1,6 +1,8 @@
 import re
 
 TOKENS = [
+    ('COMMENT_SINGLE', r'#.*'),  # Comentarios de una línea
+    ('COMMENT_MULTIPLE', r'/\*.*?\*/'),  # Comentarios de varias líneas
     ('PRINT', r'print'),  # Palabra clave 'print'
     ('VAR', r'var'),  # Palabra clave 'var'
     ('NUMBER', r'\d+'),  # Números enteros
@@ -27,8 +29,9 @@ def lex(code):
             match = re.match(token_regex, code)
             if match:
                 value = match.group(0)
-                if token_name != 'WHITESPACE':  # Ignorar espacios en blanco
-                    tokens.append((token_name, value))
+                # Ignorar comentarios y espacios en blanco
+                if token_name not in ('COMMENT_SINGLE', 'COMMENT_MULTI', 'WHITESPACE'):
+                    tokens.append((token_name, value))  # Asegúrate de que sea una tupla (tipo, valor)
                 code = code[len(value):]
                 break
         else:
