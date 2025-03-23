@@ -17,8 +17,90 @@ def parse_statement(tokens):
         return parse_var_declaration(tokens)
     elif tokens[0][0] == 'PRINT':
         return parse_print_statement(tokens)
+    elif tokens[0][0] == 'IF':
+        return parse_if_statement(tokens)
+    elif tokens[0][0] == 'FOR':
+        return parse_for_loop(tokens)
+    elif tokens[0][0] == 'WHILE':
+        return parse_while_loop(tokens)
     else:
         return parse_expression(tokens)
+
+def parse_if_statement(tokens):
+    tokens.pop(0)  # Eliminar 'if'
+    if tokens[0][0] != 'LPAREN':
+        raise SyntaxError("Se esperaba '(' después de 'if'")
+    tokens.pop(0)  # Eliminar '('
+    condition = parse_expression(tokens)
+    if tokens[0][0] != 'RPAREN':
+        raise SyntaxError("Se esperaba ')' después de la condición")
+    tokens.pop(0)  # Eliminar ')'
+    if tokens[0][0] != 'LBRACE':
+        raise SyntaxError("Se esperaba '{' después de 'if'")
+    tokens.pop(0)  # Eliminar '{'
+    body = parse_block(tokens)
+    else_body = None
+    if tokens and tokens[0][0] == 'ELSE':
+        tokens.pop(0)  # Eliminar 'else'
+        if tokens[0][0] != 'LBRACE':
+            raise SyntaxError("Se esperaba '{' después de 'else'")
+        tokens.pop(0)  # Eliminar '{'
+        else_body = parse_block(tokens)
+    return IfStatement(condition, body, else_body)
+
+def parse_for_loop(tokens):
+    tokens.pop(0)  # Eliminar 'for'
+    if tokens[0][0] != 'LPAREN':
+        raise SyntaxError("Se esperaba '(' después de 'for'")
+    tokens.pop(0)  # Eliminar '('
+
+    # Inicialización (puede ser una declaración de variable o una expresión)
+    init = parse_var_declaration(tokens) if tokens[0][0] == 'VAR' else parse_expression(tokens)
+    if tokens[0][0] != 'SEMICOLON':
+        raise SyntaxError("Se esperaba ';' después de la inicialización")
+    tokens.pop(0)  # Eliminar ';'
+
+    # Condición
+    condition = parse_expression(tokens)
+    if tokens[0][0] != 'SEMICOLON':
+        raise SyntaxError("Se esperaba ';' después de la condición")
+    tokens.pop(0)  # Eliminar ';'
+
+    # Actualización
+    update = parse_expression(tokens)
+    if tokens[0][0] != 'RPAREN':
+        raise SyntaxError("Se esperaba ')' después de la actualización")
+    tokens.pop(0)  # Eliminar ')'
+
+    # Cuerpo del bucle
+    if tokens[0][0] != 'LBRACE':
+        raise SyntaxError("Se esperaba '{' después de 'for'")
+    tokens.pop(0)  # Eliminar '{'
+    body = parse_block(tokens)
+    return ForLoop(init, condition, update, body)
+
+def parse_while_loop(tokens):
+    tokens.pop(0)  # Eliminar 'while'
+    if tokens[0][0] != 'LPAREN':
+        raise SyntaxError("Se esperaba '(' después de 'while'")
+    tokens.pop(0)  # Eliminar '('
+    condition = parse_expression(tokens)
+    if tokens[0][0] != 'RPAREN':
+        raise SyntaxError("Se esperaba ')' después de la condición")
+    tokens.pop(0)  # Eliminar ')'
+    if tokens[0][0] != 'LBRACE':
+        raise SyntaxError("Se esperaba '{' después de 'while'")
+    tokens.pop(0)  # Eliminar '{'
+    body = parse_block(tokens)
+    return WhileLoop(condition, body)
+
+def parse_block(tokens):
+    statements = []
+    while tokens and tokens[0][0] != 'RBRACE':
+        statements.append(parse_statement(tokens))
+    if tokens and tokens[0][0] == 'RBRACE':
+        tokens.pop(0)  # Eliminar '}'
+    return statements
 
 def parse_var_declaration(tokens):
     tokens.pop(0)  # Eliminar 'var'
@@ -86,7 +168,18 @@ def parse_mul_div(tokens):
     return node
 
 def parse_expression(tokens):
-    return parse_logical_or(tokens)
+    return parse_assignment(tokens)
+
+def parse_assignment(tokens):
+    node = parse_logical_or(tokens)
+    if tokens and tokens[0][0] == 'ASSIGN':
+        op = tokens.pop(0)[1]
+        value = parse_assignment(tokens)
+        if isinstance(node, Variable):
+            return VariableAssignment(node.name, value)
+        else:
+            raise SyntaxError("El lado izquierdo de una asignación debe ser una variable")
+    return node
 
 def parse_logical_or(tokens):
     node = parse_logical_and(tokens)

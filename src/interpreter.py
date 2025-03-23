@@ -4,7 +4,7 @@ class Interpreter:
     def __init__(self):
         self.variables = {}  # Diccionario para almacenar variables
 
-    def interpret(self, statements):
+    def interpret(self, statements):    
         """
         Ejecuta una lista de declaraciones (statements).
         """
@@ -16,31 +16,39 @@ class Interpreter:
                 # Declaración de impresión: evalúa y muestra el valor
                 value = self.evaluate(statement.value)
                 print(value)
+            elif isinstance(statement, IfStatement):
+                # Condicional if
+                condition = self.evaluate(statement.condition)
+                if condition:
+                    self.interpret(statement.body)
+                elif statement.else_body:
+                    self.interpret(statement.else_body)
+            elif isinstance(statement, ForLoop):
+                # Bucle for
+                self.evaluate(statement.init)  # Ejecuta la inicialización (puede ser una declaración de variable)
+                while self.evaluate(statement.condition):  # Evalúa la condición
+                    self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+                    self.evaluate(statement.update)  # Ejecuta la actualización
+            elif isinstance(statement, WhileLoop):
+                # Bucle while
+                while self.evaluate(statement.condition):  # Evalúa la condición
+                    self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
             else:
                 # Otras declaraciones (expresiones)
                 self.evaluate(statement)
 
     def evaluate(self, node):
-        """
-        Evalúa un nodo del AST y devuelve su valor.
-        """
         if isinstance(node, Number):
-            # Nodo Number: devuelve el valor entero
             return node.value
         elif isinstance(node, Float):
-            # Nodo Float: devuelve el valor flotante
             return node.value
         elif isinstance(node, String):
-            # Nodo String: devuelve el valor de la cadena
             return node.value
         elif isinstance(node, Boolean):
-            # Nodo Boolean: devuelve el valor booleano
             return node.value
         elif isinstance(node, Array):
-            # Nodo Array: evalúa cada elemento y devuelve una lista
             return [self.evaluate(element) for element in node.elements]
         elif isinstance(node, ArrayAccess):
-            # Nodo ArrayAccess: accede a un elemento del arreglo
             array = self.variables.get(node.name)
             if array is None:
                 raise ValueError(f'Arreglo no definido: {node.name}')
@@ -53,7 +61,6 @@ class Interpreter:
                 array = array[index]
             return array
         elif isinstance(node, BinOp):
-            # Nodo BinOp: evalúa operaciones binarias (+, -, *, /)
             left = self.evaluate(node.left)
             right = self.evaluate(node.right)
             if node.op == '+':
@@ -86,6 +93,12 @@ class Interpreter:
                 return left and right
             elif node.op == '||':
                 return left or right
+        elif isinstance(node, VariableAssignment):
+            self.variables[node.name] = self.evaluate(node.value)
+            return self.variables[node.name]
+        elif isinstance(node, VariableDeclaration):
+            self.variables[node.name] = self.evaluate(node.value)
+            return self.variables[node.name]
         elif isinstance(node, NotOp):
             return not self.evaluate(node.expr)
         elif isinstance(node, Variable):
