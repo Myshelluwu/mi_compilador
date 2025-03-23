@@ -13,7 +13,7 @@ Este es un compilador para un lenguaje de programación simple llamado Kiki. El 
 1. Clona este repositorio:
     git clone https://github.com/Myshelluwu/mi_compilador.git
 2. Navega al directorio del proyecto:
-    cd ProyectoFinalMod1
+    cd mi_compilador
 3. Ejecuta el compilador:
     python main.py
 4. Ingresa el nombre del archivo .kiki que deseas ejecutar (sin la extensión):
