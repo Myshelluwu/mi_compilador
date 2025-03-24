@@ -1,17 +1,17 @@
 # Variables
 meow("Variables:")
-var x = 10
-var y = 20
-var z = x + y
+michi x = 10
+michi y = 20
+michi z = x + y
 meow(z)
 
 
 # Tipos de Datos basicos
 meow("Tipos de datos basicos:")
-var entero = 42
-var flotante = 3.14
-var cadena = "Hola, mundo!"
-var booleano = true
+michi entero = 42
+michi flotante = 3.14
+michi cadena = "Hola, mundo!"
+michi booleano = true
 
 meow(entero)
 meow(flotante)
@@ -21,10 +21,10 @@ meow(booleano)
 
 # Operaciones Aritmeticas y Logicas
 meow("Operaciones Aritmeticas y Logicas:")
-var a = 10
-var b = 20
-var c = true
-var d = false
+michi a = 10
+michi b = 20
+michi c = true
+michi d = false
 
 meow(a + b)  # 30
 meow(a < b)  # true
@@ -35,7 +35,7 @@ meow(!d)  # true
 
 # Estructuras de control
 meow("Estructuras de control:")
-var a = 10
+michi a = 10
 
 if (a > 5) {
     meow("a es mayor que 5")
@@ -43,11 +43,11 @@ if (a > 5) {
     meow("a es menor o igual que 5")
 }
 
-for (var i = 0; i < 3; i = i + 1) {
+for (michi i = 0; i < 3; i = i + 1) {
    meow(i)
 }
 
-var j = 0
+michi j = 0
 while (j < 3) {
     meow(j)
     j = j + 1
@@ -60,14 +60,14 @@ function suma(a, b) {
     return a + b
 }
 
-var resultado = suma(2, 3)
+michi resultado = suma(2, 3)
 meow(resultado)  # Debería imprimir 5
 
 
 # Arreglos
 meow("Arreglos:")
-var arreglo = [1, 2, 3, 4, 5]
-var matriz = [[1, 2], [3, 4]]
+michi arreglo = [1, 2, 3, 4, 5]
+michi matriz = [[1, 2], [3, 4]]
 
 meow(arreglo[0])
 meow(matriz[1][0])
@@ -76,8 +76,8 @@ meow(matriz[1][0])
 # Comentarios
 meow("Comentarios:")
 # Este es un comentario de una línea.
-var x = 10  # Esto es una variable con un comentario.
+michi x = 10  # Esto es una variable con un comentario.
 
-var y = 20
+michi y = 20
 
 meow(x + y)  # Imprime la suma de x e y.

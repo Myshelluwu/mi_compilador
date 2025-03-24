@@ -111,28 +111,28 @@ class ArrayAccess(ASTNode):
     def __repr__(self):
         return f'ArrayAccess({self.name}, {self.indices})'
 
-class VariableDeclaration(ASTNode):
+class MichiDeclaration(ASTNode):
     def __init__(self, name, value):
         self.name = name
         self.value = value
 
     def __repr__(self):
-        return f'VariableDeclaration({self.name}, {self.value})'
+        return f'MichiDeclaration({self.name}, {self.value})'
     
-class VariableAssignment(ASTNode):
+class MichiAssignment(ASTNode):
     def __init__(self, name, value):
         self.name = name
         self.value = value
 
     def __repr__(self):
-        return f'VariableAssignment({self.name}, {self.value})'
+        return f'MichiAssignment({self.name}, {self.value})'
 
-class Variable(ASTNode):
+class Michi(ASTNode):
     def __init__(self, name):
         self.name = name
 
     def __repr__(self):
-        return f'Variable({self.name})'
+        return f'Michi({self.name})'
 
 class MeowStatement(ASTNode):
     def __init__(self, value):

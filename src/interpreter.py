@@ -2,7 +2,7 @@ from .ast import *  # Importa todas las clases del AST
 
 class Interpreter:
     def __init__(self):
-        self.variables = {}  # Diccionario para almacenar variables
+        self.michis = {}  # Diccionario para almacenar variables
         self.functions = {}  # Diccionario para almacenar funciones
 
     def interpret(self, statements):    
@@ -10,9 +10,9 @@ class Interpreter:
         Ejecuta una lista de declaraciones (statements).
         """
         for statement in statements:
-            if isinstance(statement, VariableDeclaration):
+            if isinstance(statement, MichiDeclaration):
                 # Declaración de variable: guarda el valor en el diccionario
-                self.variables[statement.name] = self.evaluate(statement.value)
+                self.michis[statement.name] = self.evaluate(statement.value)
             elif isinstance(statement, MeowStatement):
                 # Declaración de impresión: evalúa y muestra el valor
                 value = self.evaluate(statement.value)
@@ -54,7 +54,7 @@ class Interpreter:
         elif isinstance(node, Array):
             return [self.evaluate(element) for element in node.elements]
         elif isinstance(node, ArrayAccess):
-            array = self.variables.get(node.name)
+            array = self.michis.get(node.name)
             if array is None:
                 raise ValueError(f'Arreglo no definido: {node.name}')
             indices = [self.evaluate(index) for index in node.indices]
@@ -98,27 +98,27 @@ class Interpreter:
                 return left and right
             elif node.op == '||':
                 return left or right
-        elif isinstance(node, VariableAssignment):
-            self.variables[node.name] = self.evaluate(node.value)
-            return self.variables[node.name]
-        elif isinstance(node, VariableDeclaration):
-            self.variables[node.name] = self.evaluate(node.value)
-            return self.variables[node.name]
+        elif isinstance(node, MichiAssignment):
+            self.michis[node.name] = self.evaluate(node.value)
+            return self.michis[node.name]
+        elif isinstance(node, MichiDeclaration):
+            self.michis[node.name] = self.evaluate(node.value)
+            return self.michis[node.name]
         elif isinstance(node, NotOp):
             return not self.evaluate(node.expr)
-        elif isinstance(node, Variable):
-            return self.variables.get(node.name, 0)
-        elif isinstance(node, Variable):
+        elif isinstance(node, Michi):
+            return self.michis.get(node.name, 0)
+        elif isinstance(node, Michi):
             # Nodo Variable: devuelve el valor de la variable
-            return self.variables.get(node.name, 0)
+            return self.michis.get(node.name, 0)
         elif isinstance(node, FunctionCall):
             function = self.functions.get(node.name)
             if function is None:
                 raise ValueError(f'Función no definida: {node.name}')
             # Crear un nuevo ámbito para los parámetros
-            old_variables = self.variables.copy()
+            old_michis = self.michis.copy()
             for param_name, arg_value in zip(function.parameters, node.arguments):
-                self.variables[param_name] = self.evaluate(arg_value)
+                self.michis[param_name] = self.evaluate(arg_value)
             # Ejecutar el cuerpo de la función
             result = None
             for statement in function.body:
@@ -126,7 +126,7 @@ class Interpreter:
                 if isinstance(statement, ReturnStatement):
                     break
             # Restaurar el ámbito anterior
-            self.variables = old_variables
+            self.michis = old_michis
             return result
         else:
             # Si el nodo no es reconocido, lanza un error

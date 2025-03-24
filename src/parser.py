@@ -13,8 +13,8 @@ def parse(tokens):
     return statements
 
 def parse_statement(tokens):
-    if tokens[0][0] == 'VAR':
-        return parse_var_declaration(tokens)
+    if tokens[0][0] == 'MICHI':
+        return parse_michi_declaration(tokens)
     elif tokens[0][0] == 'MEOW':
         return parse_meow_statement(tokens)
     elif tokens[0][0] == 'IF':
@@ -59,7 +59,7 @@ def parse_for_loop(tokens):
     tokens.pop(0)  # Eliminar '('
 
     # Inicialización (puede ser una declaración de variable o una expresión)
-    init = parse_var_declaration(tokens) if tokens[0][0] == 'VAR' else parse_expression(tokens)
+    init = parse_michi_declaration(tokens) if tokens[0][0] == 'MICHI' else parse_expression(tokens)
     if tokens[0][0] != 'SEMICOLON':
         raise SyntaxError("Se esperaba ';' después de la inicialización")
     tokens.pop(0)  # Eliminar ';'
@@ -106,7 +106,7 @@ def parse_block(tokens):
         tokens.pop(0)  # Eliminar '}'
     return statements
 
-def parse_var_declaration(tokens):
+def parse_michi_declaration(tokens):
     tokens.pop(0)  # Eliminar 'var'
     name = tokens.pop(0)[1]  # Obtener el nombre de la variable
     tokens.pop(0)  # Eliminar '='
@@ -114,7 +114,7 @@ def parse_var_declaration(tokens):
     # Ignorar saltos de línea al final
     while tokens and tokens[0][0] == 'NEWLINE':
         tokens.pop(0)
-    return VariableDeclaration(name, value)
+    return MichiDeclaration(name, value)
 
 def parse_meow_statement(tokens):
     tokens.pop(0)  # Eliminar 'meow'
@@ -179,10 +179,10 @@ def parse_assignment(tokens):
     if tokens and tokens[0][0] == 'ASSIGN':
         op = tokens.pop(0)[1]
         value = parse_assignment(tokens)
-        if isinstance(node, Variable):
-            return VariableAssignment(node.name, value)
+        if isinstance(node, Michi):
+            return MichiAssignment(node.name, value)
         else:
-            raise SyntaxError("El lado izquierdo de una asignación debe ser una variable")
+            raise SyntaxError("El lado izquierdo de una asignación debe ser un michi")
     return node
 
 def parse_logical_or(tokens):
@@ -267,7 +267,7 @@ def parse_factor(tokens):
             return parse_function_call(tokens, name)
         else:
             # Es una variable simple
-            return Variable(name)
+            return Michi(name)
     elif tokens[0][0] == 'LPAREN':
         tokens.pop(0)  # Eliminar '('
         node = parse_expression(tokens)

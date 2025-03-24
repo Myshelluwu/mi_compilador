@@ -1,6 +1,6 @@
 # Variables
 meow("Variables:")
-var x = 10
-var y = 20
-var z = x + y
+michi x = 10
+michi y = 20
+michi z = x + y
 meow(z)
