@@ -15,8 +15,8 @@ def parse(tokens):
 def parse_statement(tokens):
     if tokens[0][0] == 'VAR':
         return parse_var_declaration(tokens)
-    elif tokens[0][0] == 'PRINT':
-        return parse_print_statement(tokens)
+    elif tokens[0][0] == 'MEOW':
+        return parse_meow_statement(tokens)
     elif tokens[0][0] == 'IF':
         return parse_if_statement(tokens)
     elif tokens[0][0] == 'FOR':
@@ -116,10 +116,10 @@ def parse_var_declaration(tokens):
         tokens.pop(0)
     return VariableDeclaration(name, value)
 
-def parse_print_statement(tokens):
-    tokens.pop(0)  # Eliminar 'print'
+def parse_meow_statement(tokens):
+    tokens.pop(0)  # Eliminar 'meow'
     if tokens[0][0] != 'LPAREN':
-        raise SyntaxError("Se esperaba '(' después de 'print'")
+        raise SyntaxError("Se esperaba '(' después de 'meow'")
     tokens.pop(0)  # Eliminar '('
     value = parse_expression(tokens)  # Obtener el valor a imprimir
     if tokens[0][0] != 'RPAREN':
@@ -128,7 +128,7 @@ def parse_print_statement(tokens):
     # Ignorar saltos de línea al final
     while tokens and tokens[0][0] == 'NEWLINE':
         tokens.pop(0)
-    return PrintStatement(value)
+    return MeowStatement(value)
 
 def parse_expression(tokens):
     if tokens[0][0] == 'LBRACKET':

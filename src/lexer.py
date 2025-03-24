@@ -6,7 +6,7 @@ TOKENS = [
     ('COMMENT_MULTIPLE', r'/\*[^*]*\*+(?:[^/*][^*]*\*+)*/'),  # Comentarios de varias líneas
 
     # Palabras clave (deben estar antes de los identificadores)
-    ('PRINT', r'print'),  # Palabra clave 'print'
+    ('MEOW', r'meow'),  # Palabra clave 'print'
     ('VAR', r'var'),  # Palabra clave 'var'
     ('IF', r'if'),  # Condicional if
     ('ELSE', r'else'),  # Condicional else

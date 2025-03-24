@@ -134,12 +134,12 @@ class Variable(ASTNode):
     def __repr__(self):
         return f'Variable({self.name})'
 
-class PrintStatement(ASTNode):
+class MeowStatement(ASTNode):
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f'PrintStatement({self.value})'
+        return f'MeowStatement({self.value})'
     
 class FunctionDeclaration(ASTNode):
     def __init__(self, name, parameters, body):

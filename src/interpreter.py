@@ -13,7 +13,7 @@ class Interpreter:
             if isinstance(statement, VariableDeclaration):
                 # Declaración de variable: guarda el valor en el diccionario
                 self.variables[statement.name] = self.evaluate(statement.value)
-            elif isinstance(statement, PrintStatement):
+            elif isinstance(statement, MeowStatement):
                 # Declaración de impresión: evalúa y muestra el valor
                 value = self.evaluate(statement.value)
                 print(value)
