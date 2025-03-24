@@ -38,12 +38,12 @@ class NotOp(ASTNode):
     def __repr__(self):
         return f'NotOp({self.expr})'
 
-class Number(ASTNode):
+class Lata(ASTNode):
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f'Number({self.value})'
+        return f'Lata({self.value})'
 
 class Float(ASTNode):
     def __init__(self, value):

@@ -1,11 +1,11 @@
 # Tipos de Datos basicos
-print("Tipos de datos basicos:")
-var entero = 42
-var flotante = 3.14
-var cadena = "Hola, mundo!"
-var booleano = true
+meow("Tipos de datos basicos:")
+lata entero = 42
+float flotante = 3.14
+string cadena = "Hola, mundo!"
+bool booleano = true
 
-print(entero)
-print(flotante)
-print(cadena)
-print(booleano)
+meow(entero)
+meow(flotante)
+meow(cadena)
+meow(booleano)

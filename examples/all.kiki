@@ -8,10 +8,10 @@ meow(z)
 
 # Tipos de Datos basicos
 meow("Tipos de datos basicos:")
-michi entero = 42
-michi flotante = 3.14
-michi cadena = "Hola, mundo!"
-michi booleano = true
+number entero = 42
+float flotante = 3.14
+string cadena = "Hola, mundo!"
+bool booleano = true
 
 meow(entero)
 meow(flotante)
