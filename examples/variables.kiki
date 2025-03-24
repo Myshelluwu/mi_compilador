@@ -1,6 +1,9 @@
 # Variables
 meow("Variables:")
-michi x = 10
-michi y = 20
-michi z = x + y
+vidas x = 10
+vidas y = 20
+vidas z = x + y
+
+michi atun = "Dolores"
 meow(z)
+meow(atun)

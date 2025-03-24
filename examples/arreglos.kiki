@@ -1,7 +1,7 @@
 # Arreglos
-print("Arreglos:")
-var arreglo = [1, 2, 3, 4, 5]
-var matriz = [[1, 2], [3, 4]]
+meow("Arreglos:")
+michi arreglo = [1, 2, 3, 4, 5]
+michi matriz = [[1, 2], [3, 4]]
 
-print(arreglo[0])
-print(matriz[1][0])
+meow(arreglo[0])
+meow(matriz[1][0])
