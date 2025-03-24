@@ -44,9 +44,9 @@ TOKENS = [
     ('SEMICOLON', r';'),  # Punto y coma
 
     # Literales (números, cadenas, identificadores)
-    ('FLOAT', r'\d+\.\d+'),  # Números flotantes
-    ('Vidas', r'\d+'),  # Números enteros
-    ('STRING', r'"[^"]*"'),  # Cadenas entre comillas dobles
+    ('PESO', r'\d+\.\d+'),  # Números flotantes
+    ('VIDAS', r'\d+'),  # Números enteros
+    ('COLA', r'"[^"]*"'),  # Cadenas entre comillas dobles
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),  # Identificadores
 
     # Espacios en blanco y saltos de línea (deben estar al final)

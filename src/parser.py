@@ -248,12 +248,12 @@ def parse_function_call(tokens, name):
     return FunctionCall(name, arguments)
 
 def parse_factor(tokens):
-    if tokens[0][0] == 'Vidas':
+    if tokens[0][0] == 'VIDAS':
         return Vidas(int(tokens.pop(0)[1]))
-    elif tokens[0][0] == 'FLOAT':
-        return Float(float(tokens.pop(0)[1]))
-    elif tokens[0][0] == 'STRING':
-        return String(tokens.pop(0)[1][1:-1])  # Eliminar comillas
+    elif tokens[0][0] == 'PESO':
+        return Peso(float(tokens.pop(0)[1]))
+    elif tokens[0][0] == 'COLA':
+        return Cola(tokens.pop(0)[1][1:-1])  # Eliminar comillas
     elif tokens[0][0] == 'BOOLEAN':
         value = tokens.pop(0)[1]
         return Boolean(value == 'true')

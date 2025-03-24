@@ -45,19 +45,19 @@ class Vidas(ASTNode):
     def __repr__(self):
         return f'Vidas({self.value})'
 
-class Float(ASTNode):
+class Peso(ASTNode):
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f'Float({self.value})'
+        return f'Peso({self.value})'
 
-class String(ASTNode):
+class Cola(ASTNode):
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f'String({self.value})'
+        return f'Cola({self.value})'
 
 class Boolean(ASTNode):
     def __init__(self, value):

@@ -45,9 +45,9 @@ class Interpreter:
     def evaluate(self, node):
         if isinstance(node, Vidas):
             return node.value
-        elif isinstance(node, Float):
+        elif isinstance(node, Peso):
             return node.value
-        elif isinstance(node, String):
+        elif isinstance(node, Cola):
             return node.value
         elif isinstance(node, Boolean):
             return node.value
