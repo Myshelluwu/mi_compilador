@@ -3,7 +3,7 @@ meow("Tipos de datos basicos:")
 vidas entero = 42
 peso flotante = 3.14
 cola cadena = "Hola, mundo!"
-bool booleano = true
+dormido booleano = true
 
 meow(entero)
 meow(flotante)

@@ -254,9 +254,9 @@ def parse_factor(tokens):
         return Peso(float(tokens.pop(0)[1]))
     elif tokens[0][0] == 'COLA':
         return Cola(tokens.pop(0)[1][1:-1])  # Eliminar comillas
-    elif tokens[0][0] == 'BOOLEAN':
+    elif tokens[0][0] == 'DORMIDO':
         value = tokens.pop(0)[1]
-        return Boolean(value == 'true')
+        return Dormido(value == 'true')
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
         if tokens and tokens[0][0] == 'LBRACKET':

@@ -12,7 +12,7 @@ TOKENS = [
     ('ELSE', r'else'),  # Condicional else
     ('FOR', r'for'),  # Bucle for
     ('WHILE', r'while'),  # Bucle while
-    ('BOOLEAN', r'true|false'),  # Booleanos
+    ('DORMIDO', r'true|false'),  # Booleanos
     ('FUNCTION', r'function'),  # Palabra clave 'function'
     ('RETURN', r'return'),  
 

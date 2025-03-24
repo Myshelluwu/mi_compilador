@@ -49,7 +49,7 @@ class Interpreter:
             return node.value
         elif isinstance(node, Cola):
             return node.value
-        elif isinstance(node, Boolean):
+        elif isinstance(node, Dormido):
             return node.value
         elif isinstance(node, Array):
             return [self.evaluate(element) for element in node.elements]

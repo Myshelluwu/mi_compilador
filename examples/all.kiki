@@ -9,9 +9,9 @@ meow(z)
 # Tipos de Datos basicos
 meow("Tipos de datos basicos:")
 vidas entero = 42
-float flotante = 3.14
-string cadena = "Hola, mundo!"
-bool booleano = true
+peso flotante = 3.14
+cola cadena = "Hola, mundo!"
+dormido booleano = true
 
 meow(entero)
 meow(flotante)

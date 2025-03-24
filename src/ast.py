@@ -59,12 +59,12 @@ class Cola(ASTNode):
     def __repr__(self):
         return f'Cola({self.value})'
 
-class Boolean(ASTNode):
+class Dormido(ASTNode):
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f'Boolean({self.value})'
+        return f'Dormido({self.value})'
     
 # Condicional if
 class IfStatement(ASTNode):
