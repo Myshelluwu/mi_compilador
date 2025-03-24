@@ -45,7 +45,7 @@ TOKENS = [
 
     # Literales (números, cadenas, identificadores)
     ('FLOAT', r'\d+\.\d+'),  # Números flotantes
-    ('LATA', r'\d+'),  # Números enteros
+    ('Vidas', r'\d+'),  # Números enteros
     ('STRING', r'"[^"]*"'),  # Cadenas entre comillas dobles
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),  # Identificadores
 

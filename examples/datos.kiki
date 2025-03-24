@@ -1,6 +1,6 @@
 # Tipos de Datos basicos
 meow("Tipos de datos basicos:")
-lata entero = 42
+vidas entero = 42
 float flotante = 3.14
 string cadena = "Hola, mundo!"
 bool booleano = true

@@ -43,7 +43,7 @@ class Interpreter:
                 self.evaluate(statement)
 
     def evaluate(self, node):
-        if isinstance(node, Lata):
+        if isinstance(node, Vidas):
             return node.value
         elif isinstance(node, Float):
             return node.value

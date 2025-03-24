@@ -248,8 +248,8 @@ def parse_function_call(tokens, name):
     return FunctionCall(name, arguments)
 
 def parse_factor(tokens):
-    if tokens[0][0] == 'LATA':
-        return Lata(int(tokens.pop(0)[1]))
+    if tokens[0][0] == 'Vidas':
+        return Vidas(int(tokens.pop(0)[1]))
     elif tokens[0][0] == 'FLOAT':
         return Float(float(tokens.pop(0)[1]))
     elif tokens[0][0] == 'STRING':

@@ -8,7 +8,7 @@ meow(z)
 
 # Tipos de Datos basicos
 meow("Tipos de datos basicos:")
-number entero = 42
+vidas entero = 42
 float flotante = 3.14
 string cadena = "Hola, mundo!"
 bool booleano = true
@@ -21,8 +21,8 @@ meow(booleano)
 
 # Operaciones Aritmeticas y Logicas
 meow("Operaciones Aritmeticas y Logicas:")
-michi a = 10
-michi b = 20
+vidas a = 10
+vidas b = 20
 michi c = true
 michi d = false
 
@@ -35,7 +35,7 @@ meow(!d)  # true
 
 # Estructuras de control
 meow("Estructuras de control:")
-michi a = 10
+vidas a = 10
 
 if (a > 5) {
     meow("a es mayor que 5")
@@ -43,11 +43,12 @@ if (a > 5) {
     meow("a es menor o igual que 5")
 }
 
-for (michi i = 0; i < 3; i = i + 1) {
+vidas = i
+for (i = 0; i < 3; i = i + 1) {
    meow(i)
 }
 
-michi j = 0
+vidas j = 0
 while (j < 3) {
     meow(j)
     j = j + 1
