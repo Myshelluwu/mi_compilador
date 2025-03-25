@@ -10,8 +10,8 @@ TOKENS = [
     ('MICHI', r'michi'),  # Palabra clave 'var'
     ('SI', r'si'),  # Condicional if
     ('ENTONCES', r'entonces'),  # Condicional else
-    ('FOR', r'for'),  # Bucle for
-    ('WHILE', r'while'),  # Bucle while
+    ('CUANDO', r'cuando'),  # Bucle for
+    ('MIENTRAS', r'mientras'),  # Bucle while
     ('DORMIDO', r'true|false'),  # Booleanos
     ('FUNCTION', r'function'),  # Palabra clave 'function'
     ('RETURN', r'return'),  

@@ -19,9 +19,9 @@ def parse_statement(tokens):
         return parse_meow_statement(tokens)
     elif tokens[0][0] == 'SI':
         return parse_si_statement(tokens)
-    elif tokens[0][0] == 'FOR':
+    elif tokens[0][0] == 'CUANDO':
         return parse_for_loop(tokens)
-    elif tokens[0][0] == 'WHILE':
+    elif tokens[0][0] == 'MIENTRAS':
         return parse_while_loop(tokens)
     elif tokens[0][0] == 'FUNCTION':
         return parse_function_declaration(tokens)
@@ -31,7 +31,6 @@ def parse_statement(tokens):
         return parse_expression(tokens)
 
 def parse_si_statement(tokens):
-    print("Tokens:", tokens)  # Agrega esto al inicio de parse_si_statement
     tokens.pop(0)  # Eliminar 'if'
     if tokens[0][0] != 'LPAREN':
         raise SyntaxError("Se esperaba '(' después de 'si'")
