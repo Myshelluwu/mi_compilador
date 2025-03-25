@@ -59,11 +59,11 @@ mientras (j < 58) {
 # Funciones
 meow("Funciones:")
 maullar suma(a, b) {
-    return a + b
+    respuesta a + b
 }
 
 michi resultado = suma(2, 3)
-meow(resultado)  # Debería imprimir 5
+meow(resultado)
 
 
 # Arreglos
