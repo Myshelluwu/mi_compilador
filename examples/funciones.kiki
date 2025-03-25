@@ -1,8 +1,8 @@
 # Funciones
 meow("Funciones:")
-function suma(a, b) {
-    return a + b
+maullar suma(a, b) {
+    respuesta a + b
 }
 
 michi resultado = suma(2, 3)
-meow(resultado)  # Debería imprimir 5
+meow(resultado)

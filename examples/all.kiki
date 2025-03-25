@@ -58,7 +58,7 @@ mientras (j < 58) {
 
 # Funciones
 meow("Funciones:")
-function suma(a, b) {
+maullar suma(a, b) {
     return a + b
 }
 

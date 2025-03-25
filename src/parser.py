@@ -23,9 +23,9 @@ def parse_statement(tokens):
         return parse_for_loop(tokens)
     elif tokens[0][0] == 'MIENTRAS':
         return parse_while_loop(tokens)
-    elif tokens[0][0] == 'FUNCTION':
+    elif tokens[0][0] == 'MAULLAR':
         return parse_function_declaration(tokens)
-    elif tokens[0][0] == 'RETURN':
+    elif tokens[0][0] == 'RESPUESTA':
         return parse_return_statement(tokens)
     else:
         return parse_expression(tokens)
