@@ -8,10 +8,11 @@ si (a > 5) {
     meow("a es menor o igual que 5")
 }
 
-vidas = i
+vidas i = 0
 for (i = 0; i < 3; i = i + 1) {
    meow(i)
 }
+
 vidas j = 0
 while (j < 3) {
     meow(j)
