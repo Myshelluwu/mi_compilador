@@ -2,8 +2,8 @@ import re
 
 TOKENS = [
     # Comentarios (deben estar al principio para que se ignoren primero)
-    ('COMMENT_SINGLE', r'#.*'),  # Comentarios de una línea
-    ('COMMENT_MULTIPLE', r'/\*[^*]*\*+(?:[^/*][^*]*\*+)*/'),  # Comentarios de varias líneas
+    ('COMMENT_SINGLE', r'uwu.*'), # Comentarios de una línea
+    ('COMMENT_MULTIPLE', r'uwur[\s\S]*?uwur'),  # Comentarios de varias líneas
 
     # Palabras clave (deben estar antes de los identificadores)
     ('MEOW', r'meow'),  # Palabra clave 'print'

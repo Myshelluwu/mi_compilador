@@ -1,4 +1,4 @@
-# Variables
+uwu Variables
 meow("Variables:")
 vidas x = 10
 vidas y = 20
@@ -9,7 +9,7 @@ meow(z)
 meow(atun)
 
 
-# Tipos de Datos basicos
+uwu Tipos de Datos basicos
 meow("Tipos de datos basicos:")
 vidas entero = 42
 peso flotante = 3.14
@@ -22,21 +22,21 @@ meow(cadena)
 meow(booleano)
 
 
-# Operaciones Aritmeticas y Logicas
+uwu Operaciones Aritmeticas y Logicas
 meow("Operaciones Aritmeticas y Logicas:")
 vidas a = 10
 vidas b = 20
 michi c = true
 michi d = false
 
-meow(a + b)  # 30
-meow(a < b)  # true
-meow(c && d)  # false
-meow(c || d)  # true
-meow(!d)  # true
+meow(a + b)  uwu 30
+meow(a < b)  uwu true
+meow(c && d)  uwu false
+meow(c || d)  uwu true
+meow(!d)  uwu true
 
 
-# Estructuras de control
+uwu Estructuras de control
 meow("Estructuras de control:")
 vidas a = 10
 
@@ -56,7 +56,7 @@ mientras (j < 58) {
     j = j + 1
 }
 
-# Funciones
+uwu Funciones
 meow("Funciones:")
 maullar suma(a, b) {
     respuesta a + b
@@ -66,7 +66,7 @@ michi resultado = suma(2, 3)
 meow(resultado)
 
 
-# Arreglos
+uwu Arreglos
 meow("Arreglos:")
 michi arreglo = [1, 2, 3, 4, 5]
 michi matriz = [[1, 2], [3, 4]]
@@ -75,11 +75,11 @@ meow(arreglo[0])
 meow(matriz[1][0])
 
 
-# Comentarios
+uwu Comentarios
 meow("Comentarios:")
-# Este es un comentario de una línea.
-michi x = 10  # Esto es una variable con un comentario.
+uwu Este es un comentario de una línea.
+michi x = 10  uwu Esto es una variable con un comentario.
 
 michi y = 20
 
-meow(x + y)  # Imprime la suma de x e y.
+meow(x + y)  uwu Imprime la suma de x e y.
