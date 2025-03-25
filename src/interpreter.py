@@ -17,7 +17,7 @@ class Interpreter:
                 # Declaración de impresión: evalúa y muestra el valor
                 value = self.evaluate(statement.value)
                 print(value)
-            elif isinstance(statement, IfStatement):
+            elif isinstance(statement, SiStatement):
                 # Condicional if
                 condition = self.evaluate(statement.condition)
                 if condition:

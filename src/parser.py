@@ -17,8 +17,8 @@ def parse_statement(tokens):
         return parse_michi_declaration(tokens)
     elif tokens[0][0] == 'MEOW':
         return parse_meow_statement(tokens)
-    elif tokens[0][0] == 'IF':
-        return parse_if_statement(tokens)
+    elif tokens[0][0] == 'SI':
+        return parse_si_statement(tokens)
     elif tokens[0][0] == 'FOR':
         return parse_for_loop(tokens)
     elif tokens[0][0] == 'WHILE':
@@ -30,27 +30,31 @@ def parse_statement(tokens):
     else:
         return parse_expression(tokens)
 
-def parse_if_statement(tokens):
+def parse_si_statement(tokens):
+    print("Tokens:", tokens)  # Agrega esto al inicio de parse_si_statement
     tokens.pop(0)  # Eliminar 'if'
     if tokens[0][0] != 'LPAREN':
-        raise SyntaxError("Se esperaba '(' después de 'if'")
+        raise SyntaxError("Se esperaba '(' después de 'si'")
     tokens.pop(0)  # Eliminar '('
     condition = parse_expression(tokens)
     if tokens[0][0] != 'RPAREN':
         raise SyntaxError("Se esperaba ')' después de la condición")
     tokens.pop(0)  # Eliminar ')'
     if tokens[0][0] != 'LBRACE':
-        raise SyntaxError("Se esperaba '{' después de 'if'")
+        raise SyntaxError("Se esperaba '{' después de 'si'")
     tokens.pop(0)  # Eliminar '{'
+
     body = parse_block(tokens)
     else_body = None
-    if tokens and tokens[0][0] == 'ELSE':
+
+    if tokens and tokens[0][0] == 'ENTONCES':
         tokens.pop(0)  # Eliminar 'else'
         if tokens[0][0] != 'LBRACE':
-            raise SyntaxError("Se esperaba '{' después de 'else'")
+            raise SyntaxError("Se esperaba '{' después de 'sino'")
         tokens.pop(0)  # Eliminar '{'
         else_body = parse_block(tokens)
-    return IfStatement(condition, body, else_body)
+
+    return SiStatement(condition, body, else_body)
 
 def parse_for_loop(tokens):
     tokens.pop(0)  # Eliminar 'for'

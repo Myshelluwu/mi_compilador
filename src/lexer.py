@@ -8,8 +8,8 @@ TOKENS = [
     # Palabras clave (deben estar antes de los identificadores)
     ('MEOW', r'meow'),  # Palabra clave 'print'
     ('MICHI', r'michi'),  # Palabra clave 'var'
-    ('IF', r'if'),  # Condicional if
-    ('ELSE', r'else'),  # Condicional else
+    ('SI', r'si'),  # Condicional if
+    ('ENTONCES', r'entonces'),  # Condicional else
     ('FOR', r'for'),  # Bucle for
     ('WHILE', r'while'),  # Bucle while
     ('DORMIDO', r'true|false'),  # Booleanos

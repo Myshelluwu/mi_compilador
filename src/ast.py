@@ -67,14 +67,14 @@ class Dormido(ASTNode):
         return f'Dormido({self.value})'
     
 # Condicional if
-class IfStatement(ASTNode):
+class SiStatement(ASTNode):
     def __init__(self, condition, body, else_body=None):
         self.condition = condition
         self.body = body
         self.else_body = else_body
 
     def __repr__(self):
-        return f'IfStatement({self.condition}, {self.body}, else={self.else_body})'
+        return f'SiStatement({self.condition}, {self.body}, entonces={self.else_body})'
 
 # Bucle for
 class ForLoop(ASTNode):

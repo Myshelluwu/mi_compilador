@@ -40,9 +40,9 @@ meow(!d)  # true
 meow("Estructuras de control:")
 vidas a = 10
 
-if (a > 5) {
+si (a > 5) {
     meow("a es mayor que 5")
-} else {
+} entonces {
     meow("a es menor o igual que 5")
 }
 
@@ -50,13 +50,11 @@ vidas = i
 for (i = 0; i < 3; i = i + 1) {
    meow(i)
 }
-
 vidas j = 0
 while (j < 3) {
     meow(j)
     j = j + 1
 }
-
 
 # Funciones
 meow("Funciones:")
