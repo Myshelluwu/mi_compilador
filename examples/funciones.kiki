@@ -1,8 +1,8 @@
-# Funciones
-print("Funciones:")
-function suma(a, b) {
-    return a + b
+uwu Funciones
+meow("Funciones:")
+maullar suma(a, b) {
+    respuesta a + b
 }
 
-var resultado = suma(2, 3)
-print(resultado)  # Debería imprimir 5
+michi resultado = suma(2, 3)
+meow(resultado)

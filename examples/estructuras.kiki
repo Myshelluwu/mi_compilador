@@ -1,19 +1,19 @@
-# Estructuras de control
-print("Estructuras de control:")
-var a = 10
+uwu Estructuras de control
+meow("Estructuras de control:")
+vidas a = 10
 
-if (a > 5) {
-    print("a es mayor que 5")
-} else {
-    print("a es menor o igual que 5")
+si (a > 5) {
+    meow("a es mayor que 5")
+} entonces {
+    meow("a es menor o igual que 5")
 }
 
-for (var i = 0; i < 3; i = i + 1) {
-   print(i)
+cuando (i = 0; i < 3; i = i + 1) {
+   meow(i)
 }
 
-var j = 0
-while (j < 3) {
-    print(j)
+vidas j = 55
+mientras (j < 58) {
+    meow(j)
     j = j + 1
 }

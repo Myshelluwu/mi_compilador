@@ -1,8 +1,13 @@
-# Comentarios
-print("Comentarios:")
-# Este es un comentario de una línea.
-var x = 10  # Esto es una variable con un comentario.
+uwu Comentarios
+meow("Comentarios:")
+uwu Este es un comentario de una línea.
+michi x = 10  uwu Esto es una variable con un comentario.
 
-var y = 20
+michi y = 20
 
-print(x + y)  # Imprime la suma de x e y.
+meow(x + y)  uwu Imprime la suma de x e y.
+
+uwur
+esto es un 
+comentario multilinea
+uwur

@@ -1,12 +1,12 @@
-# Operaciones Aritmeticas y Logicas
-print("Operaciones Aritmeticas y Logicas:")
-var a = 10
-var b = 20
-var c = true
-var d = false
+uwu Operaciones Aritmeticas y Logicas
+meow("Operaciones Aritmeticas y Logicas:")
+vidas a = 10
+vidas b = 20
+michi c = true
+michi d = false
 
-print(a + b)  # 30
-print(a < b)  # true
-print(c && d)  # false
-print(c || d)  # true
-print(!d)  # true
+meow(a + b)  uwu 30
+meow(a < b)  uwu true
+meow(c && d)  uwu false
+meow(c || d)  uwu true
+meow(!d)  uwu true

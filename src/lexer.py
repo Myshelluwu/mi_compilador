@@ -2,19 +2,19 @@ import re
 
 TOKENS = [
     # Comentarios (deben estar al principio para que se ignoren primero)
-    ('COMMENT_SINGLE', r'#.*'),  # Comentarios de una línea
-    ('COMMENT_MULTIPLE', r'/\*[^*]*\*+(?:[^/*][^*]*\*+)*/'),  # Comentarios de varias líneas
+    ('COMMENT_SINGLE', r'uwu.*'),  # Comentarios de una línea
+    ('COMMENT_MULTIPLE', r'uwur[\s\S]*?uwur'),  # Comentarios de varias líneas
 
     # Palabras clave (deben estar antes de los identificadores)
-    ('PRINT', r'print'),  # Palabra clave 'print'
-    ('VAR', r'var'),  # Palabra clave 'var'
-    ('IF', r'if'),  # Condicional if
-    ('ELSE', r'else'),  # Condicional else
-    ('FOR', r'for'),  # Bucle for
-    ('WHILE', r'while'),  # Bucle while
-    ('BOOLEAN', r'true|false'),  # Booleanos
-    ('FUNCTION', r'function'),  # Palabra clave 'function'
-    ('RETURN', r'return'),  
+    ('PRINT', r'meow'),  # Palabra clave 'print'
+    ('VAR', r'michi'),  # Palabra clave 'var'
+    ('IF', r'si'),  # Condicional if
+    ('ELSE', r'entonces'),  # Condicional else
+    ('FOR', r'cuando'),  # Bucle for
+    ('WHILE', r'mientras'),  # Bucle while
+    ('DORMIDO', r'true|false'),  # Booleanos
+    ('FUNCTION', r'maullar'),  # Palabra clave 'function'
+    ('RETURN', r'respuesta'),  # Palabra clave 'return'
 
     # Operadores y símbolos (deben estar antes de los identificadores y números)
     ('EQUAL', r'=='),  # Igualdad
@@ -44,9 +44,9 @@ TOKENS = [
     ('SEMICOLON', r';'),  # Punto y coma
 
     # Literales (números, cadenas, identificadores)
-    ('FLOAT', r'\d+\.\d+'),  # Números flotantes (debe estar antes de NUMBER)
-    ('NUMBER', r'\d+'),  # Números enteros
-    ('STRING', r'"[^"]*"'),  # Cadenas entre comillas dobles
+    ('PESO', r'\d+\.\d+'),  # Números flotantes (debe estar antes de NUMBER)
+    ('VIDAS', r'\d+'),  # Números enteros
+    ('COLA', r'"[^"]*"'),  # Cadenas entre comillas dobles
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),  # Identificadores
 
     # Espacios en blanco y saltos de línea (deben estar al final)

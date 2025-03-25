@@ -1,6 +1,9 @@
-# Variables
-print("Variables:")
-var x = 10
-var y = 20
-var z = x + y
-print(z)
+uwu Variables
+meow("Variables:")
+vidas x = 10
+vidas y = 20
+vidas z = x + y
+
+michi atun = "Dolores"
+meow(z)
+meow(atun)

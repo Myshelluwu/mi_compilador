@@ -1,83 +1,90 @@
-# Variables
-print("Variables:")
-var x = 10
-var y = 20
-var z = x + y
-print(z)
+uwu Variables
+meow("Variables:")
+vidas x = 10
+vidas y = 20
+vidas z = x + y
+
+michi atun = "Dolores"
+meow(z)
+meow(atun)
 
 
-# Tipos de Datos basicos
-print("Tipos de datos basicos:")
-var entero = 42
-var flotante = 3.14
-var cadena = "Hola, mundo!"
-var booleano = true
+uwu Tipos de Datos basicos
+meow("Tipos de datos basicos:")
+vidas entero = 42
+peso flotante = 3.14
+cola cadena = "Hola, mundo!"
+dormido booleano = true
 
-print(entero)
-print(flotante)
-print(cadena)
-print(booleano)
-
-
-# Operaciones Aritmeticas y Logicas
-print("Operaciones Aritmeticas y Logicas:")
-var a = 10
-var b = 20
-var c = true
-var d = false
-
-print(a + b)  # 30
-print(a < b)  # true
-print(c && d)  # false
-print(c || d)  # true
-print(!d)  # true
+meow(entero)
+meow(flotante)
+meow(cadena)
+meow(booleano)
 
 
-# Estructuras de control
-print("Estructuras de control:")
-var a = 10
+uwu Operaciones Aritmeticas y Logicas
+meow("Operaciones Aritmeticas y Logicas:")
+vidas a = 10
+vidas b = 20
+michi c = true
+michi d = false
 
-if (a > 5) {
-    print("a es mayor que 5")
-} else {
-    print("a es menor o igual que 5")
+meow(a + b)  uwu 30
+meow(a < b)  uwu true
+meow(c && d)  uwu false
+meow(c || d)  uwu true
+meow(!d)  uwu true
+
+
+uwu Estructuras de control
+meow("Estructuras de control:")
+vidas a = 10
+
+si (a > 5) {
+    meow("a es mayor que 5")
+} entonces {
+    meow("a es menor o igual que 5")
 }
 
-for (var i = 0; i < 3; i = i + 1) {
-   print(i)
+cuando (i = 0; i < 3; i = i + 1) {
+   meow(i)
 }
 
-var j = 0
-while (j < 3) {
-    print(j)
+vidas j = 55
+mientras (j < 58) {
+    meow(j)
     j = j + 1
 }
 
-
-# Funciones
-print("Funciones:")
-function suma(a, b) {
-    return a + b
+uwu Funciones
+meow("Funciones:")
+maullar suma(a, b) {
+    respuesta a + b
 }
 
-var resultado = suma(2, 3)
-print(resultado)  # Debería imprimir 5
+michi resultado = suma(2, 3)
+meow(resultado)
 
 
-# Arreglos
-print("Arreglos:")
-var arreglo = [1, 2, 3, 4, 5]
-var matriz = [[1, 2], [3, 4]]
+uwu Arreglos
+meow("Arreglos:")
+michi arreglo = [1, 2, 3, 4, 5]
+michi matriz = [[1, 2], [3, 4]]
 
-print(arreglo[0])
-print(matriz[1][0])
+meow(arreglo[0])
+meow(matriz[1][0])
 
 
-# Comentarios
-print("Comentarios:")
-# Este es un comentario de una línea.
-var x = 10  # Esto es una variable con un comentario.
+uwu Comentarios
+meow("Comentarios:")
+uwu Este es un comentario de una línea.
+michi x = 10  uwu Esto es una variable con un comentario.
 
-var y = 20
+michi y = 20
 
-print(x + y)  # Imprime la suma de x e y.
+meow(x + y)  uwu Imprime la suma de x e y.
+
+uwur
+esto es un 
+comentario multilinea
+uwur
