@@ -65,6 +65,21 @@ class Interpreter:
                     raise ValueError(f'Índice fuera de rango: {index}')
                 array = array[index]
             return array
+        elif isinstance(node, MethodCall):
+            obj = self.variables.get(node.object_name)
+            if obj is None:
+                raise ValueError(f'Objeto no definido: {node.object_name}')
+            
+            if node.method_name == 'agregar':
+                if not isinstance(obj, list):
+                    raise ValueError(f'El método append solo puede ser usado en arrays')
+                if len(node.arguments) != 1:
+                    raise ValueError(f'El método append requiere exactamente un argumento')
+                value = self.evaluate(node.arguments[0])
+                obj.append(value)
+                return obj
+            else:
+                raise ValueError(f'Método no reconocido: {node.method_name}')
         elif isinstance(node, BinOp):
             left = self.evaluate(node.left)
             right = self.evaluate(node.right)

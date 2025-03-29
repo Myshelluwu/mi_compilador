@@ -158,6 +158,15 @@ class FunctionCall(ASTNode):
     def __repr__(self):
         return f'FunctionCall({self.name}, {self.arguments})'
 
+class MethodCall(ASTNode):
+    def __init__(self, object_name, method_name, arguments):
+        self.object_name = object_name
+        self.method_name = method_name
+        self.arguments = arguments
+
+    def __repr__(self):
+        return f'MethodCall({self.object_name}.{self.method_name}, {self.arguments})'
+
 class ReturnStatement(ASTNode):
     def __init__(self, value):
         self.value = value  # Valor a retornar

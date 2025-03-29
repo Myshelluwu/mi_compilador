@@ -33,6 +33,8 @@ TOKENS = [
     ('DIVIDE', r'/'),  # Operador de división
 
     # Símbolos y delimitadores
+    ('DOT', r'\.'),  # Punto para acceso a métodos
+    ('APPEND', r'agregar'),  # Método append
     ('LBRACE', r'\{'),  # Llave izquierda
     ('RBRACE', r'\}'),  # Llave derecha
     ('LPAREN', r'\('),  # Paréntesis izquierdo
@@ -55,23 +57,6 @@ TOKENS = [
 ]
 
 def lex(code):
-    tokens = []
-    while code:
-        for token_name, token_regex in TOKENS:
-            match = re.match(token_regex, code)
-            if match:
-                value = match.group(0)
-                # Ignorar comentarios y espacios en blanco
-                if token_name not in ('COMMENT_SINGLE', 'COMMENT_MULTIPLE', 'WHITESPACE', 'NEWLINE'):
-                    tokens.append((token_name, value))  # Asegúrate de que sea una tupla (tipo, valor)
-                code = code[len(value):]
-                break
-        else:
-            # Imprime el carácter inesperado y el contexto
-            print(f"Carácter inesperado: '{code[0]}' en el contexto: '{code[:10]}'")
-            print(f"Código restante: '{code}'")
-            raise SyntaxError(f'Token inesperado: {code[0]}')
-    return tokens
     tokens = []
     while code:
         for token_name, token_regex in TOKENS:

@@ -259,7 +259,21 @@ def parse_factor(tokens):
         return Boolean(value == 'true')
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
-        if tokens and tokens[0][0] == 'LBRACKET':
+        if tokens and tokens[0][0] == 'DOT':
+            # Es una llamada a método
+            tokens.pop(0)  # Eliminar '.'
+            method_name = tokens.pop(0)[1]  # Obtener el nombre del método
+            if tokens[0][0] != 'LPAREN':
+                raise SyntaxError("Se esperaba '(' después del nombre del método")
+            tokens.pop(0)  # Eliminar '('
+            arguments = []
+            while tokens[0][0] != 'RPAREN':
+                arguments.append(parse_expression(tokens))
+                if tokens[0][0] == 'COMMA':
+                    tokens.pop(0)  # Eliminar ','
+            tokens.pop(0)  # Eliminar ')'
+            return MethodCall(name, method_name, arguments)
+        elif tokens and tokens[0][0] == 'LBRACKET':
             # Es un acceso a arreglo
             return parse_array_access(tokens, name)
         elif tokens and tokens[0][0] == 'LPAREN':
