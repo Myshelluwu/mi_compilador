@@ -1,3 +1,0 @@
-michi arreglo = [1,2,3]
-arreglo.agregar(4)
-meow(arreglo)
