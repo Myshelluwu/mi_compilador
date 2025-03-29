@@ -35,6 +35,7 @@ TOKENS = [
     # Símbolos y delimitadores
     ('DOT', r'\.'),  # Punto para acceso a métodos
     ('APPEND', r'agregar'),  # Método append
+    ('POP', r'quitar'),  # Método pop
     ('LBRACE', r'\{'),  # Llave izquierda
     ('RBRACE', r'\}'),  # Llave derecha
     ('LPAREN', r'\('),  # Paréntesis izquierdo

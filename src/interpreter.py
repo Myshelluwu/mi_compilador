@@ -72,12 +72,30 @@ class Interpreter:
             
             if node.method_name == 'agregar':
                 if not isinstance(obj, list):
-                    raise ValueError(f'El método append solo puede ser usado en arrays')
+                    raise ValueError(f'El método agregar solo puede ser usado en arrays')
                 if len(node.arguments) != 1:
-                    raise ValueError(f'El método append requiere exactamente un argumento')
+                    raise ValueError(f'El método agregar requiere exactamente un argumento')
                 value = self.evaluate(node.arguments[0])
                 obj.append(value)
                 return obj
+            elif node.method_name == 'quitar':
+                if not isinstance(obj, list):
+                    raise ValueError(f'El método quitar solo puede ser usado en arrays')
+                if len(node.arguments) > 1:
+                    raise ValueError(f'El método quitar acepta máximo un argumento')
+                if len(node.arguments) == 1:
+                    # Si se proporciona un índice
+                    index = self.evaluate(node.arguments[0])
+                    if not isinstance(index, int):
+                        raise ValueError(f'El índice debe ser un número entero')
+                    if index < 0 or index >= len(obj):
+                        raise ValueError(f'Índice fuera de rango: {index}')
+                    return obj.pop(index)
+                else:
+                    # Si no se proporciona índice, quita el último elemento
+                    if not obj:
+                        raise ValueError('No se puede quitar elementos de un array vacío')
+                    return obj.pop()
             else:
                 raise ValueError(f'Método no reconocido: {node.method_name}')
         elif isinstance(node, BinOp):
