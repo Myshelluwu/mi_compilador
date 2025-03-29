@@ -1,0 +1,5 @@
+michi lista = [1,2,3,4]
+
+michi a =tam(lista)
+
+meow(a) 
