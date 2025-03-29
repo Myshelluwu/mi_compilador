@@ -15,6 +15,7 @@ TOKENS = [
     ('DORMIDO', r'true|false'),  # Booleanos
     ('FUNCTION', r'maullar'),  # Palabra clave 'function'
     ('RETURN', r'respuesta'),  # Palabra clave 'return'
+    ('LEN', r'\btam\b'),  # Función len (con límites de palabra)
 
     # Operadores y símbolos (deben estar antes de los identificadores y números)
     ('EQUAL', r'=='),  # Igualdad
@@ -28,7 +29,6 @@ TOKENS = [
     ('NOT', r'!'),  # NOT lógico
     ('ASSIGN', r'='),  # Operador de asignación
     ('PLUS', r'\+'),  # Operador de suma
-    ('MINUS', r'-'),  # Operador de resta
     ('MULTIPLY', r'\*'),  # Operador de multiplicación
     ('DIVIDE', r'/'),  # Operador de división
 
@@ -47,10 +47,13 @@ TOKENS = [
     ('SEMICOLON', r';'),  # Punto y coma
 
     # Literales (números, cadenas, identificadores)
-    ('PESO', r'\d+\.\d+'),  # Números flotantes (debe estar antes de NUMBER)
-    ('VIDAS', r'\d+'),  # Números enteros
+    ('PESO', r'-?\d+\.\d+'),  # Números flotantes (debe estar antes de NUMBER)
+    ('VIDAS', r'-?\d+'),  # Números enteros
     ('COLA', r'"[^"]*"'),  # Cadenas entre comillas dobles
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),  # Identificadores
+
+    # Operadores que pueden ser parte de números negativos (deben estar al final)
+    ('MINUS', r'-'),  # Operador de resta
 
     # Espacios en blanco y saltos de línea (deben estar al final)
     ('NEWLINE', r'\n'),  # Salto de línea
@@ -60,13 +63,19 @@ TOKENS = [
 def lex(code):
     tokens = []
     while code:
+        # Ignorar espacios en blanco al inicio
+        while code and code[0].isspace():
+            code = code[1:]
+        if not code:
+            break
+            
         for token_name, token_regex in TOKENS:
             match = re.match(token_regex, code)
             if match:
                 value = match.group(0)
                 # Ignorar comentarios y espacios en blanco
                 if token_name not in ('COMMENT_SINGLE', 'COMMENT_MULTIPLE', 'WHITESPACE', 'NEWLINE'):
-                    tokens.append((token_name, value))  # Asegúrate de que sea una tupla (tipo, valor)
+                    tokens.append((token_name, value))
                 code = code[len(value):]
                 break
         else:

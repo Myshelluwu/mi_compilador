@@ -173,3 +173,10 @@ class ReturnStatement(ASTNode):
 
     def __repr__(self):
         return f'ReturnStatement({self.value})'
+
+class LenFunction(ASTNode):
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f'LenFunction({self.value})'

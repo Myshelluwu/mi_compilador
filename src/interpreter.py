@@ -61,6 +61,9 @@ class Interpreter:
             for index in indices:
                 if not isinstance(index, int):
                     raise ValueError(f'Índice no válido: {index}')
+                # Convertir índice negativo a positivo
+                if index < 0:
+                    index = len(array) + index
                 if index < 0 or index >= len(array):
                     raise ValueError(f'Índice fuera de rango: {index}')
                 array = array[index]
@@ -161,6 +164,14 @@ class Interpreter:
             # Restaurar el ámbito anterior
             self.variables = old_variables
             return result
+        elif isinstance(node, LenFunction):
+            value = self.evaluate(node.value)
+            if isinstance(value, list):
+                return len(value)
+            elif isinstance(value, str):
+                return len(value)
+            else:
+                raise ValueError(f'No se puede obtener la longitud de {type(value)}')
         else:
             # Si el nodo no es reconocido, lanza un error
             raise ValueError(f'Nodo AST no reconocido: {node}')

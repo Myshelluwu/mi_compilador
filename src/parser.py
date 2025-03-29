@@ -257,6 +257,16 @@ def parse_factor(tokens):
     elif tokens[0][0] == 'DORMIDO':
         value = tokens.pop(0)[1]
         return Boolean(value == 'true')
+    elif tokens[0][0] == 'LEN':
+        tokens.pop(0)  # Eliminar 'len'
+        if tokens[0][0] != 'LPAREN':
+            raise SyntaxError("Se esperaba '(' después de 'len'")
+        tokens.pop(0)  # Eliminar '('
+        value = parse_expression(tokens)
+        if tokens[0][0] != 'RPAREN':
+            raise SyntaxError("Se esperaba ')' después de la expresión en len")
+        tokens.pop(0)  # Eliminar ')'
+        return LenFunction(value)
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
         if tokens and tokens[0][0] == 'DOT':
