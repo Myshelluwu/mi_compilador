@@ -21,26 +21,37 @@ class Interpreter:
                 # Condicional if
                 condition = self.evaluate(statement.condition)
                 if condition:
-                    self.interpret(statement.body)
+                    result = self.interpret(statement.body)
+                    if result is not None:
+                        return result
                 elif statement.else_body:
-                    self.interpret(statement.else_body)
+                    result = self.interpret(statement.else_body)
+                    if result is not None:
+                        return result
             elif isinstance(statement, ForLoop):
                 # Bucle for
                 self.evaluate(statement.init)  # Ejecuta la inicialización (puede ser una declaración de variable)
                 while self.evaluate(statement.condition):  # Evalúa la condición
-                    self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+                    result = self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+                    if result is not None:
+                        return result
                     self.evaluate(statement.update)  # Ejecuta la actualización
             elif isinstance(statement, WhileLoop):
                 # Bucle while
                 while self.evaluate(statement.condition):  # Evalúa la condición
-                    self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+                    result = self.interpret(statement.body)  # Ejecuta el cuerpo del bucle
+                    if result is not None:
+                        return result
             elif isinstance(statement, FunctionDeclaration):
                 self.functions[statement.name] = statement  # Guardar la función
             elif isinstance(statement, ReturnStatement):
                 return self.evaluate(statement.value)  # Retornar el valor
             else:
                 # Otras declaraciones (expresiones)
-                self.evaluate(statement)
+                result = self.evaluate(statement)
+                if isinstance(statement, FunctionCall):
+                    print(result)  # Imprimir el resultado de la llamada a función
+                    return result
 
     def evaluate(self, node):
         if isinstance(node, Number):
