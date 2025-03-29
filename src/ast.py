@@ -135,11 +135,11 @@ class Variable(ASTNode):
         return f'Variable({self.name})'
 
 class PrintStatement(ASTNode):
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, arguments):
+        self.arguments = arguments  # Lista de argumentos a imprimir
 
     def __repr__(self):
-        return f'PrintStatement({self.value})'
+        return f'PrintStatement({self.arguments})'
     
 class FunctionDeclaration(ASTNode):
     def __init__(self, name, parameters, body):
@@ -151,12 +151,22 @@ class FunctionDeclaration(ASTNode):
         return f'FunctionDeclaration({self.name}, {self.parameters}, {self.body})'
 
 class FunctionCall(ASTNode):
-    def __init__(self, name, arguments):
+    def __init__(self, name, arguments, is_assignment=False):
         self.name = name
         self.arguments = arguments  # Lista de argumentos
+        self.is_assignment = is_assignment  # Indica si es parte de una asignación
 
     def __repr__(self):
-        return f'FunctionCall({self.name}, {self.arguments})'
+        return f'FunctionCall({self.name}, {self.arguments}, is_assignment={self.is_assignment})'
+
+class MethodCall(ASTNode):
+    def __init__(self, object_name, method_name, arguments):
+        self.object_name = object_name
+        self.method_name = method_name
+        self.arguments = arguments
+
+    def __repr__(self):
+        return f'MethodCall({self.object_name}.{self.method_name}, {self.arguments})'
 
 class ReturnStatement(ASTNode):
     def __init__(self, value):
@@ -164,3 +174,10 @@ class ReturnStatement(ASTNode):
 
     def __repr__(self):
         return f'ReturnStatement({self.value})'
+
+class LenFunction(ASTNode):
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f'LenFunction({self.value})'

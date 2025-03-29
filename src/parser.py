@@ -100,16 +100,31 @@ def parse_while_loop(tokens):
 
 def parse_block(tokens):
     statements = []
-    while tokens and tokens[0][0] != 'RBRACE':
-        statements.append(parse_statement(tokens))
+    brace_count = 1  # Contador para las llaves anidadas
+    while tokens and brace_count > 0:
+        if tokens[0][0] == 'LBRACE':
+            brace_count += 1
+            tokens.pop(0)  # Eliminar '{'
+        elif tokens[0][0] == 'RBRACE':
+            brace_count -= 1
+            if brace_count > 0:  # Si aún hay llaves abiertas, continuar
+                tokens.pop(0)  # Eliminar '}'
+        else:
+            statements.append(parse_statement(tokens))
     if tokens and tokens[0][0] == 'RBRACE':
-        tokens.pop(0)  # Eliminar '}'
+        tokens.pop(0)  # Eliminar la última llave de cierre
     return statements
 
 def parse_var_declaration(tokens):
     tokens.pop(0)  # Eliminar 'var'
     name = tokens.pop(0)[1]  # Obtener el nombre de la variable
+    # Ignorar espacios en blanco y saltos de línea
+    while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+        tokens.pop(0)
     tokens.pop(0)  # Eliminar '='
+    # Ignorar espacios en blanco y saltos de línea
+    while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+        tokens.pop(0)
     value = parse_expression(tokens)  # Obtener el valor de la variable
     # Ignorar saltos de línea al final
     while tokens and tokens[0][0] == 'NEWLINE':
@@ -121,58 +136,46 @@ def parse_print_statement(tokens):
     if tokens[0][0] != 'LPAREN':
         raise SyntaxError("Se esperaba '(' después de 'print'")
     tokens.pop(0)  # Eliminar '('
-    value = parse_expression(tokens)  # Obtener el valor a imprimir
+    
+    # Obtener todos los argumentos separados por comas
+    arguments = []
+    while tokens[0][0] != 'RPAREN':
+        arguments.append(parse_expression(tokens))
+        if tokens[0][0] == 'COMMA':
+            tokens.pop(0)  # Eliminar ','
+            # Ignorar espacios en blanco después de la coma
+            while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+                tokens.pop(0)
+    
     if tokens[0][0] != 'RPAREN':
-        raise SyntaxError("Se esperaba ')' después de la expresión")
+        raise SyntaxError("Se esperaba ')' después de los argumentos")
     tokens.pop(0)  # Eliminar ')'
+    
     # Ignorar saltos de línea al final
     while tokens and tokens[0][0] == 'NEWLINE':
         tokens.pop(0)
-    return PrintStatement(value)
+    return PrintStatement(arguments)
 
 def parse_expression(tokens):
-    if tokens[0][0] == 'LBRACKET':
-        return parse_array(tokens)
+    # Ignorar espacios en blanco y saltos de línea al inicio
+    while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+        tokens.pop(0)
+        
+    if tokens[0][0] == 'LPAREN':
+        tokens.pop(0)  # Eliminar '('
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        node = parse_expression(tokens)
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        if tokens[0][0] != 'RPAREN':
+            raise SyntaxError("Se esperaba ')' después de la expresión")
+        tokens.pop(0)  # Eliminar ')'
+        return node
     else:
-        return parse_add_sub(tokens)
-
-def parse_array(tokens):
-    tokens.pop(0)  # Eliminar '['
-    elements = []
-    while tokens[0][0] != 'RBRACKET':
-        elements.append(parse_expression(tokens))
-        if tokens[0][0] == 'COMMA':
-            tokens.pop(0)  # Eliminar ','
-    tokens.pop(0)  # Eliminar ']'
-    return Array(elements)
-
-def parse_array_access(tokens, name):
-    indices = []
-    while tokens and tokens[0][0] == 'LBRACKET':
-        tokens.pop(0)  # Eliminar '['
-        index = parse_expression(tokens)
-        indices.append(index)
-        if tokens[0][0] != 'RBRACKET':
-            raise SyntaxError("Se esperaba ']' después del índice")
-        tokens.pop(0)  # Eliminar ']'
-    return ArrayAccess(name, indices)
-
-def parse_add_sub(tokens):
-    node = parse_mul_div(tokens)
-    while tokens and tokens[0][0] in ('PLUS', 'MINUS'):
-        op = tokens.pop(0)[1]
-        node = BinOp(node, op, parse_mul_div(tokens))
-    return node
-
-def parse_mul_div(tokens):
-    node = parse_factor(tokens)
-    while tokens and tokens[0][0] in ('MULTIPLY', 'DIVIDE'):
-        op = tokens.pop(0)[1]
-        node = BinOp(node, op, parse_factor(tokens))
-    return node
-
-def parse_expression(tokens):
-    return parse_assignment(tokens)
+        return parse_assignment(tokens)
 
 def parse_assignment(tokens):
     node = parse_logical_or(tokens)
@@ -180,6 +183,9 @@ def parse_assignment(tokens):
         op = tokens.pop(0)[1]
         value = parse_assignment(tokens)
         if isinstance(node, Variable):
+            # Si el valor es una llamada a función, marcarla como parte de una asignación
+            if isinstance(value, FunctionCall):
+                value.is_assignment = True
             return VariableAssignment(node.name, value)
         else:
             raise SyntaxError("El lado izquierdo de una asignación debe ser una variable")
@@ -203,7 +209,11 @@ def parse_comparison(tokens):
     node = parse_add_sub(tokens)
     while tokens and tokens[0][0] in ('EQUAL', 'NOT_EQUAL', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL'):
         op = tokens.pop(0)[1]
-        node = ComparisonOp(node, op, parse_add_sub(tokens))
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        right = parse_add_sub(tokens)
+        node = ComparisonOp(node, op, right)
     return node
 
 def parse_not(tokens):
@@ -248,6 +258,10 @@ def parse_function_call(tokens, name):
     return FunctionCall(name, arguments)
 
 def parse_factor(tokens):
+    # Ignorar espacios en blanco y saltos de línea al inicio
+    while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+        tokens.pop(0)
+        
     if tokens[0][0] == 'VIDAS':
         return Number(int(tokens.pop(0)[1]))
     elif tokens[0][0] == 'PESO':
@@ -257,9 +271,42 @@ def parse_factor(tokens):
     elif tokens[0][0] == 'DORMIDO':
         value = tokens.pop(0)[1]
         return Boolean(value == 'true')
+    elif tokens[0][0] == 'TAM':
+        tokens.pop(0)  # Eliminar 'tam'
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        if tokens[0][0] != 'LPAREN':
+            raise SyntaxError("Se esperaba '(' después de 'tam'")
+        tokens.pop(0)  # Eliminar '('
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        value = parse_expression(tokens)
+        # Ignorar espacios en blanco y saltos de línea
+        while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+            tokens.pop(0)
+        if tokens[0][0] != 'RPAREN':
+            raise SyntaxError("Se esperaba ')' después de la expresión en tam")
+        tokens.pop(0)  # Eliminar ')'
+        return LenFunction(value)
     elif tokens[0][0] == 'IDENTIFIER':
         name = tokens.pop(0)[1]
-        if tokens and tokens[0][0] == 'LBRACKET':
+        if tokens and tokens[0][0] == 'DOT':
+            # Es una llamada a método
+            tokens.pop(0)  # Eliminar '.'
+            method_name = tokens.pop(0)[1]  # Obtener el nombre del método
+            if tokens[0][0] != 'LPAREN':
+                raise SyntaxError("Se esperaba '(' después del nombre del método")
+            tokens.pop(0)  # Eliminar '('
+            arguments = []
+            while tokens[0][0] != 'RPAREN':
+                arguments.append(parse_expression(tokens))
+                if tokens[0][0] == 'COMMA':
+                    tokens.pop(0)  # Eliminar ','
+            tokens.pop(0)  # Eliminar ')'
+            return MethodCall(name, method_name, arguments)
+        elif tokens and tokens[0][0] == 'LBRACKET':
             # Es un acceso a arreglo
             return parse_array_access(tokens, name)
         elif tokens and tokens[0][0] == 'LPAREN':
@@ -281,3 +328,38 @@ def parse_factor(tokens):
         return parse_not(tokens)
     else:
         raise SyntaxError(f'Token inesperado: {tokens[0][1]}')
+
+def parse_array(tokens):
+    tokens.pop(0)  # Eliminar '['
+    elements = []
+    while tokens[0][0] != 'RBRACKET':
+        elements.append(parse_expression(tokens))
+        if tokens[0][0] == 'COMMA':
+            tokens.pop(0)  # Eliminar ','
+    tokens.pop(0)  # Eliminar ']'
+    return Array(elements)
+
+def parse_array_access(tokens, name):
+    indices = []
+    while tokens and tokens[0][0] == 'LBRACKET':
+        tokens.pop(0)  # Eliminar '['
+        index = parse_expression(tokens)
+        indices.append(index)
+        if tokens[0][0] != 'RBRACKET':
+            raise SyntaxError("Se esperaba ']' después del índice")
+        tokens.pop(0)  # Eliminar ']'
+    return ArrayAccess(name, indices)
+
+def parse_add_sub(tokens):
+    node = parse_mul_div(tokens)
+    while tokens and tokens[0][0] in ('PLUS', 'MINUS'):
+        op = tokens.pop(0)[1]
+        node = BinOp(node, op, parse_mul_div(tokens))
+    return node
+
+def parse_mul_div(tokens):
+    node = parse_factor(tokens)
+    while tokens and tokens[0][0] in ('MULTIPLY', 'DIVIDE'):
+        op = tokens.pop(0)[1]
+        node = BinOp(node, op, parse_factor(tokens))
+    return node
