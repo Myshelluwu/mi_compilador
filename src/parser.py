@@ -183,6 +183,9 @@ def parse_assignment(tokens):
         op = tokens.pop(0)[1]
         value = parse_assignment(tokens)
         if isinstance(node, Variable):
+            # Si el valor es una llamada a función, marcarla como parte de una asignación
+            if isinstance(value, FunctionCall):
+                value.is_assignment = True
             return VariableAssignment(node.name, value)
         else:
             raise SyntaxError("El lado izquierdo de una asignación debe ser una variable")

@@ -151,12 +151,13 @@ class FunctionDeclaration(ASTNode):
         return f'FunctionDeclaration({self.name}, {self.parameters}, {self.body})'
 
 class FunctionCall(ASTNode):
-    def __init__(self, name, arguments):
+    def __init__(self, name, arguments, is_assignment=False):
         self.name = name
         self.arguments = arguments  # Lista de argumentos
+        self.is_assignment = is_assignment  # Indica si es parte de una asignación
 
     def __repr__(self):
-        return f'FunctionCall({self.name}, {self.arguments})'
+        return f'FunctionCall({self.name}, {self.arguments}, is_assignment={self.is_assignment})'
 
 class MethodCall(ASTNode):
     def __init__(self, object_name, method_name, arguments):

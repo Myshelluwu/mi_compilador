@@ -50,7 +50,9 @@ class Interpreter:
                 # Otras declaraciones (expresiones)
                 result = self.evaluate(statement)
                 if isinstance(statement, FunctionCall):
-                    print(result)  # Imprimir el resultado de la llamada a función
+                    # Solo imprimir si no es parte de una asignación y el resultado no es None
+                    if not statement.is_assignment and result is not None:
+                        print(result)
                     return result
 
     def evaluate(self, node):
