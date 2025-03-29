@@ -15,7 +15,7 @@ TOKENS = [
     ('DORMIDO', r'true|false'),  # Booleanos
     ('FUNCTION', r'maullar'),  # Palabra clave 'function'
     ('RETURN', r'respuesta'),  # Palabra clave 'return'
-    ('LEN', r'\btam\b'),  # Función len (con límites de palabra)
+    ('TAM', r'\btam\b'),  # Función tam (con límites de palabra)
 
     # Operadores y símbolos (deben estar antes de los identificadores y números)
     ('EQUAL', r'=='),  # Igualdad
