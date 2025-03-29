@@ -1,0 +1,75 @@
+uwu Implementación de Pila (Stack) sin clases
+maullar create_stack():
+    respuesta {"items": []}
+
+maullar stack_push(stack, item):
+    uwuAgrega un elemento a la cima de la pila
+    stack["items"].append(item)
+
+maullar stack_pop(stack):
+    uwuElimina y devuelve el elemento de la cima de la pila
+    si not stack_is_empty(stack):
+        respuesta stack["items"].pop()
+    entonces 
+        meow("La pila está vacía")
+
+maullar stack_peek(stack):
+    uwuDevuelve el elemento de la cima sin eliminarlo
+    si not stack_is_empty(stack):
+        respuesta stack["items"][-1]
+    entonces 
+        meow("La pila está vacía")
+
+maullar stack_is_empty(stack):
+    uwuverifica si la pila está vacía
+    respuesta len(stack["items"]) == 0
+
+
+uwu Implementación de Cola (Queue) sin clases
+maullar create_queue():
+    respuesta {"items": []}
+
+maullar queue_enqueue(queue, item):
+    uwuAgrega un elemento al final de la cola
+    queue["items"].append(item)
+
+maullar queue_dequeue(queue):
+    uwuElimina y devuelve el primer elemento de la cola
+    si not queue_is_empty(queue):
+        respuesta queue["items"].pop(0)
+    entonces 
+        meow("La cola está vacía")
+
+maullar queue_front(queue):
+    uwuDevuelve el primer elemento sin eliminarlo
+    si not queue_is_empty(queue):
+        respuesta queue["items"][0]
+    entonces 
+        meow("La cola está vacía")
+
+maullar queue_is_empty(queue):
+    uwuverifica si la cola está vacía
+    respuesta len(queue["items"]) == 0
+
+
+uwu Ejemplo de uso en Análisis Semántico
+maullar ejemplo_analisis_semantico():
+    uwu Uso de Pila para verificar tipos y scope
+    tipos_pila = create_stack()
+    stack_push(tipos_pila, "int")
+    stack_push(tipos_pila, "string")
+   
+    meow("Último tipo agregado:", stack_peek(tipos_pila))
+    meow("Tipo extraído:", stack_pop(tipos_pila))
+   
+    uwu Uso de Cola para manejo de tokens
+    tokens_cola = create_queue()
+    queue_enqueue(tokens_cola, "identsiicador")
+    queue_enqueue(tokens_cola, "operador")
+    queue_enqueue(tokens_cola, "valor")
+   
+    meow("Primer token:", queue_front(tokens_cola))
+    meow("Token procesado:", queue_dequeue(tokens_cola))
+
+uwu Ejecutar ejemplo
+ejemplo_analisis_semantico()
