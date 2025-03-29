@@ -14,9 +14,9 @@ class Interpreter:
                 # Declaración de variable: guarda el valor en el diccionario
                 self.variables[statement.name] = self.evaluate(statement.value)
             elif isinstance(statement, PrintStatement):
-                # Declaración de impresión: evalúa y muestra el valor
-                value = self.evaluate(statement.value)
-                print(value)
+                # Declaración de impresión: evalúa y muestra los valores
+                values = [self.evaluate(arg) for arg in statement.arguments]
+                print(*values)  # Desempaquetar los valores para print
             elif isinstance(statement, IfStatement):
                 # Condicional if
                 condition = self.evaluate(statement.condition)

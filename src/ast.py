@@ -135,11 +135,11 @@ class Variable(ASTNode):
         return f'Variable({self.name})'
 
 class PrintStatement(ASTNode):
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, arguments):
+        self.arguments = arguments  # Lista de argumentos a imprimir
 
     def __repr__(self):
-        return f'PrintStatement({self.value})'
+        return f'PrintStatement({self.arguments})'
     
 class FunctionDeclaration(ASTNode):
     def __init__(self, name, parameters, body):

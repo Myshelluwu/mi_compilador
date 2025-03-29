@@ -136,14 +136,25 @@ def parse_print_statement(tokens):
     if tokens[0][0] != 'LPAREN':
         raise SyntaxError("Se esperaba '(' después de 'print'")
     tokens.pop(0)  # Eliminar '('
-    value = parse_expression(tokens)  # Obtener el valor a imprimir
+    
+    # Obtener todos los argumentos separados por comas
+    arguments = []
+    while tokens[0][0] != 'RPAREN':
+        arguments.append(parse_expression(tokens))
+        if tokens[0][0] == 'COMMA':
+            tokens.pop(0)  # Eliminar ','
+            # Ignorar espacios en blanco después de la coma
+            while tokens and (tokens[0][0] == 'WHITESPACE' or tokens[0][0] == 'NEWLINE'):
+                tokens.pop(0)
+    
     if tokens[0][0] != 'RPAREN':
-        raise SyntaxError("Se esperaba ')' después de la expresión")
+        raise SyntaxError("Se esperaba ')' después de los argumentos")
     tokens.pop(0)  # Eliminar ')'
+    
     # Ignorar saltos de línea al final
     while tokens and tokens[0][0] == 'NEWLINE':
         tokens.pop(0)
-    return PrintStatement(value)
+    return PrintStatement(arguments)
 
 def parse_expression(tokens):
     # Ignorar espacios en blanco y saltos de línea al inicio
